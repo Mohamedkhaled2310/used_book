@@ -34,10 +34,9 @@ exports.register = async (req, res) => {
 
   res.status(201).json({ message: 'تم التسجيل بنجاح!' ,
     user: {
-    name: user.name,
-    email: user.email,
-    lat: user.lat,
-    lng: user.lng
+    name: newUser.name,
+    lat: newUser.location.coordinates[1],
+    lng: newUser.location.coordinates[0]
   }
   });
 };
@@ -61,9 +60,8 @@ exports.login = async (req, res) => {
   message: 'تم تسجيل الدخول بنجاح!',
   user: {
     name: user.name,
-    email: user.email,
-    lat: user.lat,
-    lng: user.lng
+    lat: user.location.coordinates[1],
+    lng: user.location.coordinates[0]
   }
 });
 };

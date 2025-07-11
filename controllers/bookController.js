@@ -37,6 +37,12 @@ exports.getNearbyBooks = async (req, res) => {
       }
     }
   }).populate('user', 'name image');
-
-  res.json(books);
+  
+  res.json({
+    books,
+    userLocation: {
+      lat: user.location.coordinates[1],
+      lng: user.location.coordinates[0]
+    }
+  });
 };
