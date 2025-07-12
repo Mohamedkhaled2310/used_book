@@ -70,3 +70,23 @@ exports.logout = (req, res) => {
   res.clearCookie('token');
   res.json({ message: 'Logged out' });
 };
+
+exports.updateLocation = async (req, res) => {
+  const { lat, lng } = req.body;
+  const user = await User.findById(req.userId);
+
+  if (!user) return res.status(404).json({ message: 'User not found' });
+  user.location = {
+    type: "Point",
+    coordinates: [lng, lat],
+  };
+  await user.save();
+  res.json({
+    message: 'Location updated successfully',
+    user: {
+      name: user.name,
+      lat: user.location.coordinates[1],
+      lng: user.location.coordinates[0]
+    }
+  });
+};
